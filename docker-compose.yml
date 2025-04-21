@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  streamlit:
+    env_file:
+      - ./.env
+    build: 
+      context: ./client
+    ports:
+      - "8502:8502"
+    depends_on:
+      - fastapi
+    networks:
+      - python-network
+
+  fastapi:
+    env_file:
+      - ./.env
+    build: 
+      context: ./fastapi
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mcpserver
+    networks:
+      - python-network
+
+  mcpserver:
+    env_file:
+      - ./.env
+    build: 
+      context: ./server
+    ports:
+      - "8002:8002"
+    depends_on:
+      - postgres
+    networks:
+      - python-network
+
+  postgres:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - python-network
+
+networks:
+  python-network:
+    driver: bridge
+
+volumes:
+  pgdata:

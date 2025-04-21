@@ -1,0 +1,7 @@
+.env
+
+server/__pycache__
+
+fastapi/__pycache__
+
+client/__pycache__

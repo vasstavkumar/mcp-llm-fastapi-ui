@@ -1,0 +1,10 @@
+google-genai
+pydantic
+psycopg2-binary
+requests
+mcp
+fastapi
+uvicorn
+streamlit
+groq
+openai

@@ -1,0 +1,13 @@
+Database: Employees
+
+Table: employees
+
+Columns:
+1. id          | SERIAL PRIMARY KEY
+2. first_name  | VARCHAR(100) NOT NULL
+3. last_name   | VARCHAR(100) NOT NULL
+4. email       | VARCHAR(150) UNIQUE NOT NULL
+5. phone       | VARCHAR(20) UNIQUE
+6. department  | VARCHAR(100) CHECK (department IN ('HR', 'Engineering', 'Marketing', 'Sales', 'Finance', 'IT', 'Operations'))
+7. salary      | DECIMAL(10,2) CHECK (salary > 0)
+8. hire_date   | DATE DEFAULT CURRENT_DATE
